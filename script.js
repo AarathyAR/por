@@ -1,3 +1,4 @@
+// 1. Smooth Scrolling
 document.querySelectorAll('nav a').forEach(link => {
     link.addEventListener('click', e => {
         e.preventDefault();
@@ -6,6 +7,43 @@ document.querySelectorAll('nav a').forEach(link => {
     });
 });
 
+// 2. Hobby Data
+const hobbyData = {
+    dance: {
+        title: "Artistic Movement",
+        text: "My approach to dance is rooted in the fusion of classical discipline and contemporary freedom. I view choreography as a visual extension of web development—both require structure, timing, and an eye for aesthetics."
+    },
+    horology: {
+        title: "Mechanical Craftsmanship",
+        text: "I am a dedicated collector of vintage timepieces, with a specific focus on 1970s Japanese engineering. Understanding the intricate gear-work of a mechanical watch helps me appreciate the 'unseen' architecture in coding."
+    },
+    exploration: {
+        title: "Curated Exploration",
+        text: "I travel to find the intersection of culture and commerce. From the bustling night markets of Thailand to the historic lanes of Bangalore, I document the sensory details that make every location unique."
+    }
+};
+
+// 3. Modal Functions
+function openModal(hobby) {
+    const modal = document.getElementById("hobbyModal");
+    const body = document.getElementById("modalBody");
+    const data = hobbyData[hobby];
+    body.innerHTML = `<h2 style="color: #00f3ff; margin-bottom: 20px; font-size: 2rem;">${data.title}</h2><p style="font-size: 1.1rem; line-height: 1.8; color: #ccc;">${data.text}</p>`;
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+    document.getElementById("hobbyModal").style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("hobbyModal");
+    if (event.target == modal) closeModal();
+}
+
+// 4. Skill Bar Observer
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -14,25 +52,7 @@ const observer = new IntersectionObserver((entries) => {
             });
         }
     });
-}, { threshold: 0.3 });
+}, { threshold: 0.2 });
 
-const resume = document.querySelector('.resume-grid');
-if (resume) observer.observe(resume);
-
-window.addEventListener('scroll', () => {
-    let current = "";
-    const sections = document.querySelectorAll("section, header");
-    sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= sectionTop - 150) {
-            current = section.getAttribute("id");
-        }
-    });
-
-    document.querySelectorAll(".nav-links a").forEach((a) => {
-        a.classList.remove("active");
-        if (a.getAttribute("href").includes(current)) {
-            a.classList.add("active");
-        }
-    });
-});
+const resumeSection = document.querySelector('.resume-grid');
+if (resumeSection) observer.observe(resumeSection);
