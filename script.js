@@ -23,21 +23,28 @@ const hobbyData = {
     }
 };
 
-// 3. Modal Functions
+// 3. Modal Functions - FIXED for Centering & Scroll Lock
 function openModal(hobby) {
     const modal = document.getElementById("hobbyModal");
     const body = document.getElementById("modalBody");
     const data = hobbyData[hobby];
-    body.innerHTML = `<h2 style="color: #00f3ff; margin-bottom: 20px; font-size: 2rem;">${data.title}</h2><p style="font-size: 1.1rem; line-height: 1.8; color: #ccc;">${data.text}</p>`;
-    modal.style.display = "block";
-    document.body.style.overflow = "hidden";
+    
+    // Injecting the content into the bubble
+    body.innerHTML = `
+        <h2 style="color: #00f3ff; margin-bottom: 20px; font-size: 2rem;">${data.title}</h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #ccc;">${data.text}</p>
+    `;
+    
+    modal.style.display = "flex"; // Centering the bubble
+    document.body.style.overflow = "hidden"; // Locks the background mouse movement
 }
 
 function closeModal() {
     document.getElementById("hobbyModal").style.display = "none";
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = "auto"; // Re-enables scrolling
 }
 
+// Close modal when clicking outside the bubble
 window.onclick = function(event) {
     const modal = document.getElementById("hobbyModal");
     if (event.target == modal) closeModal();
